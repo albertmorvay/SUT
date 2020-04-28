@@ -36,8 +36,14 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTitleAbout = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxServiceUnits = new System.Windows.Forms.PictureBox();
+            this.labelTotalServiceUnitCount = new System.Windows.Forms.Label();
+            this.groupBoxTotalNumberOfServiceUnits = new System.Windows.Forms.GroupBox();
             this.tabControlMain.SuspendLayout();
+            this.tabPageTracker.SuspendLayout();
             this.tabPageAbout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).BeginInit();
+            this.groupBoxTotalNumberOfServiceUnits.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -52,6 +58,7 @@
             // 
             // tabPageTracker
             // 
+            this.tabPageTracker.Controls.Add(this.groupBoxTotalNumberOfServiceUnits);
             this.tabPageTracker.Location = new System.Drawing.Point(4, 22);
             this.tabPageTracker.Name = "tabPageTracker";
             this.tabPageTracker.Padding = new System.Windows.Forms.Padding(3);
@@ -113,6 +120,38 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // pictureBoxServiceUnits
+            // 
+            this.pictureBoxServiceUnits.Image = global::SUT.Properties.Resources.clock_icon_made_by_eucalyp_from_flaticon;
+            this.pictureBoxServiceUnits.Location = new System.Drawing.Point(19, 32);
+            this.pictureBoxServiceUnits.Name = "pictureBoxServiceUnits";
+            this.pictureBoxServiceUnits.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxServiceUnits.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxServiceUnits.TabIndex = 0;
+            this.pictureBoxServiceUnits.TabStop = false;
+            // 
+            // labelTotalServiceUnitCount
+            // 
+            this.labelTotalServiceUnitCount.AutoSize = true;
+            this.labelTotalServiceUnitCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotalServiceUnitCount.Location = new System.Drawing.Point(103, 26);
+            this.labelTotalServiceUnitCount.Name = "labelTotalServiceUnitCount";
+            this.labelTotalServiceUnitCount.Size = new System.Drawing.Size(104, 73);
+            this.labelTotalServiceUnitCount.TabIndex = 1;
+            this.labelTotalServiceUnitCount.Text = "00";
+            this.labelTotalServiceUnitCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBoxTotalNumberOfServiceUnits
+            // 
+            this.groupBoxTotalNumberOfServiceUnits.Controls.Add(this.pictureBoxServiceUnits);
+            this.groupBoxTotalNumberOfServiceUnits.Controls.Add(this.labelTotalServiceUnitCount);
+            this.groupBoxTotalNumberOfServiceUnits.Location = new System.Drawing.Point(20, 20);
+            this.groupBoxTotalNumberOfServiceUnits.Name = "groupBoxTotalNumberOfServiceUnits";
+            this.groupBoxTotalNumberOfServiceUnits.Size = new System.Drawing.Size(233, 112);
+            this.groupBoxTotalNumberOfServiceUnits.TabIndex = 2;
+            this.groupBoxTotalNumberOfServiceUnits.TabStop = false;
+            this.groupBoxTotalNumberOfServiceUnits.Text = "Total Number of Service Units";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,8 +166,12 @@
             this.Text = "Service Unit Tracker";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
+            this.tabPageTracker.ResumeLayout(false);
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageAbout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).EndInit();
+            this.groupBoxTotalNumberOfServiceUnits.ResumeLayout(false);
+            this.groupBoxTotalNumberOfServiceUnits.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -142,6 +185,9 @@
         private System.Windows.Forms.Label labelSoftwareVersion;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelTitleAbout;
+        private System.Windows.Forms.Label labelTotalServiceUnitCount;
+        private System.Windows.Forms.PictureBox pictureBoxServiceUnits;
+        private System.Windows.Forms.GroupBox groupBoxTotalNumberOfServiceUnits;
     }
 }
 

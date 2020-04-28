@@ -75,6 +75,8 @@ namespace SUT
                         workingDay = persistedWorkingDay;
                         var bar = workingDay.TotalTime();
                         workingDay.AddServiceUnit();
+                        SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
+                        
                         // Update a document inside a collection
                         databaseCollection.Update(workingDay);
                     }
@@ -82,6 +84,7 @@ namespace SUT
                     {
                         // Create your new customer instance
                         workingDay = new WorkingDay();
+                        SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
                         databaseCollection.Insert(workingDay);
                     }
 
@@ -112,6 +115,33 @@ namespace SUT
                 throw exception;
 #else
                 Log.Fatal (exception, "Recording of service unit failed.");
+                Application.Exit();
+#endif
+            }
+        }
+
+        delegate void SetLabelTotalServiceUnitCountTextCallback(string text);
+
+        private void SetLabelTotalServiceUnitCountText(string text)
+        {
+            try
+            {
+                if (this.labelTotalServiceUnitCount.InvokeRequired)
+                {
+                    SetLabelTotalServiceUnitCountTextCallback d = new SetLabelTotalServiceUnitCountTextCallback(SetLabelTotalServiceUnitCountText);
+                    this.Invoke(d, new object[] { text });
+                }
+                else
+                {
+                    this.labelTotalServiceUnitCount.Text = text;
+                }
+            }
+            catch (Exception exception)
+            {
+#if DEBUG
+                throw exception;
+#else
+                Log.Fatal (exception, "Setting total service unit count failed.");
                 Application.Exit();
 #endif
             }
