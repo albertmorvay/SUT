@@ -5,10 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Toast notification reminder to take a break.
-- Track number of Service Units during which user was not actively using the computer.
-- Generate Excel time sheet for a given week number in a year.
-- UI element with countdown until another Service Unit is recorded.
+- https://github.com/albertmorvay/SUT/labels/enhancement
 
 ## 0.2.0 - 2020-04-28
 ### Added
