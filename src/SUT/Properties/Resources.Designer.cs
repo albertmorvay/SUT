@@ -63,6 +63,16 @@ namespace SUT.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap calculator_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("calculator-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clock_icon_made_by_eucalyp_from_flaticon {
             get {
                 object obj = ResourceManager.GetObject("clock-icon-made-by-eucalyp-from-flaticon", resourceCulture);

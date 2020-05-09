@@ -6,6 +6,10 @@ Clock Icon
 
 	Designed by Eucalyp (https://www.flaticon.com/free-icon/clock_427935) from Flaticon is licensed under the Flaticon License Free for personal and commercial purpose with attribution (https://www.freepikcompany.com/legal)
 	
+Calculator Icon
+
+	Designed by Eucalyp (https://www.flaticon.com/free-icon/finances_181088) from Flaticon is licensed under the Flaticon License Free for personal and commercial purpose with attribution (https://www.freepikcompany.com/legal)
+
 	
 --
 
