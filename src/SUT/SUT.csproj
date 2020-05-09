@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\clock-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\calculator-icon-made-by-eucalyp-from-flaticon.png" />
     <Content Include="text-icon-made-by-pixel-perfect-from-flaticon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

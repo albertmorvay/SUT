@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 using LiteDB;
+using Serilog;
 using Simplexcel;
 
 namespace SUT
@@ -12,6 +14,7 @@ namespace SUT
         {
             try
             {
+                Log.Debug("Generating Weekly Report.");
                 // Prepare Timesheet Template
                 var sheet = new Worksheet(string.Format("Timesheet", year, weekNumber));
                 SetTitleCell(sheet, "A2", "Weekly Timesheet");
@@ -32,44 +35,66 @@ namespace SUT
                 SetHeadingCell(sheet, "F4", "Day Total");
                 sheet.ColumnWidths[6] = 15;
                 SetHeadingCell(sheet, "G4", "Day Total Hours");
+                Log.Debug("Primary headings set.");
 
                 // Add Data
                 var dateOfDayBeingReportedOn = FirstDateOfWeekISO8601(year, weekNumber);
+                Log.Debug("Identified date for Monday.");
                 SetHeadingCell(sheet, "A5", string.Format("{0} - Monday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 5);
+                Log.Debug("Monday's data generated.");
                 dateOfDayBeingReportedOn = dateOfDayBeingReportedOn.AddDays(1);
                 SetHeadingCell(sheet, "A6", string.Format("{0} - Tuesday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 6);
+                Log.Debug("Tuesday's data generated.");
                 dateOfDayBeingReportedOn = dateOfDayBeingReportedOn.AddDays(1);
                 SetHeadingCell(sheet, "A7", string.Format("{0} - Wednesday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 7);
+                Log.Debug("Wednesday's data generated.");
                 dateOfDayBeingReportedOn = dateOfDayBeingReportedOn.AddDays(1);
                 SetHeadingCell(sheet, "A8", string.Format("{0} - Thursday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 8);
+                Log.Debug("Thursday's data generated.");
                 dateOfDayBeingReportedOn = dateOfDayBeingReportedOn.AddDays(1);
                 SetHeadingCell(sheet, "A9", string.Format("{0} - Friday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 9);
+                Log.Debug("Friday's data generated.");
                 dateOfDayBeingReportedOn = dateOfDayBeingReportedOn.AddDays(1);
                 SetHeadingCell(sheet, "A10", string.Format("{0} - Saturday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 10);
+                Log.Debug("Saturday's data generated.");
                 dateOfDayBeingReportedOn = dateOfDayBeingReportedOn.AddDays(1);
                 SetHeadingCell(sheet, "A11", string.Format("{0} - Sunday", dateOfDayBeingReportedOn.ToString("MMMM dd, yyyy")));
                 PopulateCellsWithWorkingDayData(sheet, dateOfDayBeingReportedOn, 11);
+                Log.Debug("Sunday's data generated.");
 
                 SetHeadingCell(sheet, "F13", "Week Total");
                 SetBodyCellFormula(sheet, "F14", "=SUM(F5:F11)");
                 SetHeadingCell(sheet, "G13", "Week Total Hours");
                 SetBodyCellFormula(sheet, "G14", "=SUM(G5:G11)");
+                Log.Debug("Formulas for caluclating weekly totals added.");
 
                 var workbook = new Workbook();
                 workbook.Title = string.Format("{0}-{1}-{2}-alpha", year, weekNumber, Application.ProductVersion);
                 workbook.Author = string.Format("{0}-{1}", Application.ProductName, Application.ProductVersion);
+                Log.Debug("Workbook instantiated with title and author set.");
                 workbook.Add(sheet);
+                Log.Debug("Sheet added to workbook.");
+
 #if DEBUG
                 workbook.Save(string.Format(@"{0}\SUT-Timesheet-Test-{1}{2}.xlsx", @"C:\temp", year, weekNumber));
 #else
                 workbook.Save (string.Format (@"{0}\SUT-Timesheet-{1}{2}.xlsx", Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), year, weekNumber));
 #endif
+            }
+            catch (IOException)
+            {
+                var result = MessageBox.Show("The file may be open in another application if the report has been generated before.\n\nControlled Folder Access may be blocking the saving of the report.", "SUT - Report could not be save!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);
+                
+                if (result == DialogResult.Retry)
+                {
+                    CreateWeeklyReport(year, weekNumber);
+                }
             }
             catch (Exception exception)
             {

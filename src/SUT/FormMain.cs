@@ -25,6 +25,7 @@ namespace SUT
                 Log.Debug("Timer configured.");
                 timer.Start();
                 Log.Debug("Timer started.");
+                numericUpDownWeeklyReportWeekNumber.Value = ReportingExcel.GetIso8601WeekOfYear(DateTime.Now);
             }
             catch (Exception exception)
             {
@@ -145,6 +146,11 @@ namespace SUT
                 Application.Exit();
 #endif
             }
+        }
+
+        private void buttonGenerateWeeklyReport_Click(object sender, EventArgs e)
+        {
+            ReportingExcel.CreateWeeklyReport(Convert.ToInt32(numericUpDownWeeklyReportYear.Value), Convert.ToInt32(numericUpDownWeeklyReportWeekNumber.Value));
         }
     }
 }
