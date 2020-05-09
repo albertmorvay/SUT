@@ -103,23 +103,6 @@ namespace SUT
             }
         }
 
-        private void RecordServiceUnit()
-        {
-            try
-            {
-                // TODO: Write logic
-            }
-            catch (Exception exception)
-            {
-#if DEBUG
-                throw exception;
-#else
-                Log.Fatal (exception, "Recording of service unit failed.");
-                Application.Exit();
-#endif
-            }
-        }
-
         delegate void SetLabelTotalServiceUnitCountTextCallback(string text);
 
         private void SetLabelTotalServiceUnitCountText(string text)

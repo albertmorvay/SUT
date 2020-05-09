@@ -45,8 +45,10 @@ namespace SUT
 
         public TimeSpan TotalTime()
         {
-            TimeSpan duration = TimeSpan.FromMinutes(OneServiceUnitInMinutes);
-            return TimeSpan.FromTicks(duration.Ticks * TotalServiceUnits());
+            var duration = TimeSpan.Zero;
+            duration = TimeSpan.FromMinutes(OneServiceUnitInMinutes);
+            duration = TimeSpan.FromTicks(duration.Ticks * TotalServiceUnits());
+            return duration;
         }
 
         public void AddServiceUnit()
