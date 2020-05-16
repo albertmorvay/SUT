@@ -2,7 +2,7 @@
 
 namespace SUT
 {
-    class WorkCategory
+    public class WorkCategory
     {
         public string Id { get; }
         public string Timezone { get; }
@@ -16,12 +16,13 @@ namespace SUT
         public string Name { get; set; }
         public int TotalServiceUnits { get; set; }
 
-        public WorkCategory()
+        public WorkCategory(string name)
         {
-            Id = DateTime.Now.ToString("yyyyMMdd");
+            Id = GetCleanedStringForId(DateTime.Now, name);
             Timezone = TimeZone.CurrentTimeZone.StandardName;
             if (FirstServiceUnitOfTheDay == DateTime.MinValue)
                 FirstServiceUnitOfTheDay = DateTime.Now;
+            Name = name;
         }
 
         public void AddServiceUnit()
@@ -31,6 +32,11 @@ namespace SUT
                 TotalServiceUnits++;
                 LastRecordedServiceUnitOfTheDay = DateTime.Now;
             }
+        }
+
+        private string GetCleanedStringForId(DateTime dateTime, string name)
+        {
+            return string.Format("{0}-{1}", dateTime.ToString("yyyyMMdd"), name.ToUpper().Replace(" ","-")); 
         }
     }
 }

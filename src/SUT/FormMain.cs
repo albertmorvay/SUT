@@ -1,5 +1,6 @@
 ﻿using LiteDB;
 using Serilog;
+using SUT.Helpers;
 using System;
 using System.Timers;
 using System.Windows.Forms;
@@ -9,7 +10,8 @@ namespace SUT
     public partial class FormMain : Form
     {
         private System.Timers.Timer timer;
-        private WorkingDay workingDay = null;
+        private WorkingDay currentWorkingDay = null;
+        private WorkCategory currentWorkCategory = new WorkCategory("Admin");
 
         public FormMain()
         {
@@ -20,6 +22,9 @@ namespace SUT
         {
             try
             {
+                FormPositioning.ScreenCenterAtTheBottom(this);
+                var formCategoryPicker = new FormCategoryPicker(this);
+                formCategoryPicker.Show();
                 labelSoftwareVersion.Text = string.Format("{0}-alpha", Application.ProductVersion);
                 SetTimer();
                 Log.Debug("Timer configured.");
@@ -68,28 +73,45 @@ namespace SUT
 #endif
                 {
                     // Get a collection (or create, if doesn't exist)
-                    var databaseCollection = db.GetCollection<WorkingDay>("WorkingDays");
+                    var databaseCollectionWorkingDay = db.GetCollection<WorkingDay>("WorkingDays");
                     // Use Linq to query documents
-                    var persistedWorkingDay = databaseCollection.FindOne(x => x.Id == DateTime.Now.ToString("yyyyMMdd"));
+                    var persistedWorkingDay = databaseCollectionWorkingDay.FindOne(x => x.Id == DateTime.Now.ToString("yyyyMMdd"));
                     if (persistedWorkingDay != null)
                     {
-                        workingDay = persistedWorkingDay;
-                        var bar = workingDay.TotalTime();
-                        workingDay.AddServiceUnit();
-                        SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
+                        currentWorkingDay = persistedWorkingDay;
+                        var bar = currentWorkingDay.TotalTime();
+                        currentWorkingDay.AddServiceUnit();
+                        SetLabelTotalServiceUnitCountText(currentWorkingDay.TotalServiceUnits().ToString("D2"));
                         
                         // Update a document inside a collection
-                        databaseCollection.Update(workingDay);
+                        databaseCollectionWorkingDay.Update(currentWorkingDay);
                     }
                     else
                     {
                         // Create your new customer instance
-                        workingDay = new WorkingDay();
-                        SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
-                        databaseCollection.Insert(workingDay);
+                        currentWorkingDay = new WorkingDay();
+                        SetLabelTotalServiceUnitCountText(currentWorkingDay.TotalServiceUnits().ToString("D2"));
+                        databaseCollectionWorkingDay.Insert(currentWorkingDay);
                     }
 
-                    databaseCollection.Update(workingDay);
+                    databaseCollectionWorkingDay.Update(currentWorkingDay);
+
+                    // Get a collection (or create, if doesn't exist)
+                    var databaseCollectionWorkCategory = db.GetCollection<WorkCategory>("WorkCategories");
+                    
+                    var persistedWorkCategory = databaseCollectionWorkCategory.FindOne(x => x.Id == currentWorkCategory.Id);   
+                    if (persistedWorkCategory != null)
+                    {
+                        currentWorkCategory = persistedWorkCategory;
+                    }
+                    else
+                    {
+                        // Create your new customer instance
+                        currentWorkCategory = new WorkCategory("ADMIN");
+                        databaseCollectionWorkCategory.Insert(currentWorkCategory);
+                    }
+                    currentWorkCategory.AddServiceUnit();
+                    databaseCollectionWorkCategory.Update(currentWorkCategory);
                 }
                 timer.Start();
             }
@@ -151,6 +173,11 @@ namespace SUT
         private void buttonGenerateWeeklyReport_Click(object sender, EventArgs e)
         {
             ReportingExcel.CreateWeeklyReport(Convert.ToInt32(numericUpDownWeeklyReportYear.Value), Convert.ToInt32(numericUpDownWeeklyReportWeekNumber.Value));
+        }
+
+        public void SetCurrentWorkCategory(WorkCategory workCategory)
+        {
+            currentWorkCategory = workCategory;
         }
     }
 }
