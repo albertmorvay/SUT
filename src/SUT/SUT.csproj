@@ -79,16 +79,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormCategoryPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCategoryPicker.Designer.cs">
+      <DependentUpon>FormCategoryPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FormAnimations.cs" />
+    <Compile Include="Helpers\FormPositioning.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportingExcel.cs" />
+    <Compile Include="WorkCategory.cs" />
     <Compile Include="WorkingDay.cs" />
+    <EmbeddedResource Include="FormCategoryPicker.resx">
+      <DependentUpon>FormCategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,5 +133,6 @@
     <None Include="Resources\calculator-icon-made-by-eucalyp-from-flaticon.png" />
     <Content Include="text-icon-made-by-pixel-perfect-from-flaticon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
