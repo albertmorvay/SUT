@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+using System.Timers;
 using System.Windows.Forms;
 using LiteDB;
+using Serilog;
 using SUT.Helpers;
 
 namespace SUT
@@ -8,6 +11,7 @@ namespace SUT
     public partial class FormCategoryPicker : Form
     {
         private FormMain formMain = null;
+        private static System.Timers.Timer aTimer;
 
         public FormCategoryPicker()
         {
@@ -26,6 +30,7 @@ namespace SUT
             FormPositioning.ScreenCenterAtTheBottom(this);
             FormAnimations.SlideUpTopMostWithoutStealingFocus(this);
             base.OnLoad(e);
+            SetTimer();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -36,25 +41,61 @@ namespace SUT
 
         private void ButtonWorkCategory01_Click(object sender, EventArgs e)
         {
-            SetWorkCategoryToBeTrackedAgainst("Admin");
+            SetWorkCategoryToBeTrackedAgainst("ADMIN");
         }
 
         private void ButtonWorkCategory02_Click(object sender, EventArgs e)
         {
-            SetWorkCategoryToBeTrackedAgainst("Firefighting");
+            SetWorkCategoryToBeTrackedAgainst("SUPPORT");
+        }
+
+        private void buttonWorkCategory03_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("TESTING");
+        }
+
+        private void buttonWorkCategory04_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("DOCS");
+        }
+
+        private void buttonWorkCategory05_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("PROJECT");
+        }
+
+        private void buttonWorkCategory06_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("MEETING");
+        }
+
+        private void buttonWorkCategory07_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("ITOM");
+        }
+
+        private void buttonWorkCategory08_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("GRC");
+        }
+
+        private void buttonWorkCategory09_Click(object sender, EventArgs e)
+        {
+            SetWorkCategoryToBeTrackedAgainst("FIREFIGHTING");
         }
 
         private void SetWorkCategoryToBeTrackedAgainst(string categoryName)
         {
             formMain.SetCurrentWorkCategory(GetTodaysWorkCategory(categoryName));
+            formMain.SetLabelCurrentWorkCategory(categoryName);
             this.Close();
         }
 
         private WorkCategory GetTodaysWorkCategory(string categoryName)
         {
+            WorkCategory result = null;
             try
             {
-                WorkCategory result = null;
 
 #if DEBUG
                 // Open database (or create if doesn't exist)
@@ -79,7 +120,7 @@ namespace SUT
                         databaseCollection.Insert(result);
                     }
                 }
-                return result;
+                
             }
             catch (Exception exception)
             {
@@ -90,6 +131,7 @@ namespace SUT
                 Application.Exit ();
 #endif
             }
+            return result;
         }
 
         private string GetCleanedStringForId(DateTime dateTime, string name)
@@ -110,6 +152,48 @@ namespace SUT
                 CreateParams createParams = base.CreateParams;
                 createParams.ExStyle |= WS_EX_TOPMOST;
                 return createParams;
+            }
+        }
+
+        private void SetTimer()
+        {
+            // Create a timer with a two second interval.
+            aTimer = new System.Timers.Timer(7000);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            CloseCategoryPicker(this);
+        }
+
+        delegate void CloseCategoryPickerCallback(FormCategoryPicker callingForm);
+
+        private void CloseCategoryPicker(FormCategoryPicker callingForm)
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    CloseCategoryPickerCallback d = new CloseCategoryPickerCallback(CloseCategoryPicker);
+                    this.Invoke(d, new object[] { callingForm });
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+#if DEBUG
+                throw exception;
+#else
+                Log.Fatal (exception, "Setting total service unit count failed.");
+                Application.Exit();
+#endif
             }
         }
     }

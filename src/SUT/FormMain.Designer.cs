@@ -31,30 +31,33 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageTracker = new System.Windows.Forms.TabPage();
+            this.groupBoxWorkCategory = new System.Windows.Forms.GroupBox();
+            this.labelCurrentWorkCategory = new System.Windows.Forms.Label();
             this.groupBoxTotalNumberOfServiceUnits = new System.Windows.Forms.GroupBox();
-            this.pictureBoxServiceUnits = new System.Windows.Forms.PictureBox();
             this.labelTotalServiceUnitCount = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.groupBoxWeeklyReport = new System.Windows.Forms.GroupBox();
+            this.numericUpDownWeeklyReportWeekNumber = new System.Windows.Forms.NumericUpDown();
+            this.buttonGenerateWeeklyReport = new System.Windows.Forms.Button();
             this.numericUpDownWeeklyReportYear = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
             this.labelSoftwareVersion = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTitleAbout = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.buttonGenerateWeeklyReport = new System.Windows.Forms.Button();
-            this.numericUpDownWeeklyReportWeekNumber = new System.Windows.Forms.NumericUpDown();
+            this.pictureBoxServiceUnits = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageTracker.SuspendLayout();
+            this.groupBoxWorkCategory.SuspendLayout();
             this.groupBoxTotalNumberOfServiceUnits.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).BeginInit();
             this.tabPageReports.SuspendLayout();
             this.groupBoxWeeklyReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportYear)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPageAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportYear)).BeginInit();
+            this.tabPageAbout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -70,6 +73,7 @@
             // 
             // tabPageTracker
             // 
+            this.tabPageTracker.Controls.Add(this.groupBoxWorkCategory);
             this.tabPageTracker.Controls.Add(this.groupBoxTotalNumberOfServiceUnits);
             this.tabPageTracker.Location = new System.Drawing.Point(4, 22);
             this.tabPageTracker.Name = "tabPageTracker";
@@ -78,6 +82,26 @@
             this.tabPageTracker.TabIndex = 0;
             this.tabPageTracker.Text = "Tracker";
             this.tabPageTracker.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxWorkCategory
+            // 
+            this.groupBoxWorkCategory.Controls.Add(this.labelCurrentWorkCategory);
+            this.groupBoxWorkCategory.Location = new System.Drawing.Point(20, 138);
+            this.groupBoxWorkCategory.Name = "groupBoxWorkCategory";
+            this.groupBoxWorkCategory.Size = new System.Drawing.Size(233, 90);
+            this.groupBoxWorkCategory.TabIndex = 3;
+            this.groupBoxWorkCategory.TabStop = false;
+            this.groupBoxWorkCategory.Text = "Current Work Category";
+            // 
+            // labelCurrentWorkCategory
+            // 
+            this.labelCurrentWorkCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentWorkCategory.Location = new System.Drawing.Point(6, 32);
+            this.labelCurrentWorkCategory.Name = "labelCurrentWorkCategory";
+            this.labelCurrentWorkCategory.Size = new System.Drawing.Size(221, 33);
+            this.labelCurrentWorkCategory.TabIndex = 1;
+            this.labelCurrentWorkCategory.Text = "ADMIN";
+            this.labelCurrentWorkCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBoxTotalNumberOfServiceUnits
             // 
@@ -89,16 +113,6 @@
             this.groupBoxTotalNumberOfServiceUnits.TabIndex = 2;
             this.groupBoxTotalNumberOfServiceUnits.TabStop = false;
             this.groupBoxTotalNumberOfServiceUnits.Text = "Total Number of Service Units";
-            // 
-            // pictureBoxServiceUnits
-            // 
-            this.pictureBoxServiceUnits.Image = global::SUT.Properties.Resources.clock_icon_made_by_eucalyp_from_flaticon;
-            this.pictureBoxServiceUnits.Location = new System.Drawing.Point(19, 32);
-            this.pictureBoxServiceUnits.Name = "pictureBoxServiceUnits";
-            this.pictureBoxServiceUnits.Size = new System.Drawing.Size(60, 60);
-            this.pictureBoxServiceUnits.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxServiceUnits.TabIndex = 0;
-            this.pictureBoxServiceUnits.TabStop = false;
             // 
             // labelTotalServiceUnitCount
             // 
@@ -135,6 +149,39 @@
             this.groupBoxWeeklyReport.TabStop = false;
             this.groupBoxWeeklyReport.Text = "Year and Week Number";
             // 
+            // numericUpDownWeeklyReportWeekNumber
+            // 
+            this.numericUpDownWeeklyReportWeekNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numericUpDownWeeklyReportWeekNumber.Location = new System.Drawing.Point(94, 66);
+            this.numericUpDownWeeklyReportWeekNumber.Maximum = new decimal(new int[] {
+            52,
+            0,
+            0,
+            0});
+            this.numericUpDownWeeklyReportWeekNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownWeeklyReportWeekNumber.Name = "numericUpDownWeeklyReportWeekNumber";
+            this.numericUpDownWeeklyReportWeekNumber.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownWeeklyReportWeekNumber.TabIndex = 7;
+            this.numericUpDownWeeklyReportWeekNumber.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // buttonGenerateWeeklyReport
+            // 
+            this.buttonGenerateWeeklyReport.Location = new System.Drawing.Point(19, 98);
+            this.buttonGenerateWeeklyReport.Name = "buttonGenerateWeeklyReport";
+            this.buttonGenerateWeeklyReport.Size = new System.Drawing.Size(175, 23);
+            this.buttonGenerateWeeklyReport.TabIndex = 6;
+            this.buttonGenerateWeeklyReport.Text = "Save to My Documents Folder";
+            this.buttonGenerateWeeklyReport.UseVisualStyleBackColor = true;
+            this.buttonGenerateWeeklyReport.Click += new System.EventHandler(this.buttonGenerateWeeklyReport_Click);
+            // 
             // numericUpDownWeeklyReportYear
             // 
             this.numericUpDownWeeklyReportYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -157,16 +204,6 @@
             0,
             0,
             0});
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SUT.Properties.Resources.calculator_icon_made_by_eucalyp_from_flaticon;
-            this.pictureBox1.Location = new System.Drawing.Point(19, 32);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
             // 
             // tabPageAbout
             // 
@@ -221,38 +258,25 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
-            // buttonGenerateWeeklyReport
+            // pictureBoxServiceUnits
             // 
-            this.buttonGenerateWeeklyReport.Location = new System.Drawing.Point(19, 98);
-            this.buttonGenerateWeeklyReport.Name = "buttonGenerateWeeklyReport";
-            this.buttonGenerateWeeklyReport.Size = new System.Drawing.Size(175, 23);
-            this.buttonGenerateWeeklyReport.TabIndex = 6;
-            this.buttonGenerateWeeklyReport.Text = "Save to My Documents Folder";
-            this.buttonGenerateWeeklyReport.UseVisualStyleBackColor = true;
-            this.buttonGenerateWeeklyReport.Click += new System.EventHandler(this.buttonGenerateWeeklyReport_Click);
+            this.pictureBoxServiceUnits.Image = global::SUT.Properties.Resources.clock_icon_made_by_eucalyp_from_flaticon;
+            this.pictureBoxServiceUnits.Location = new System.Drawing.Point(19, 32);
+            this.pictureBoxServiceUnits.Name = "pictureBoxServiceUnits";
+            this.pictureBoxServiceUnits.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxServiceUnits.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxServiceUnits.TabIndex = 0;
+            this.pictureBoxServiceUnits.TabStop = false;
             // 
-            // numericUpDownWeeklyReportWeekNumber
+            // pictureBox1
             // 
-            this.numericUpDownWeeklyReportWeekNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numericUpDownWeeklyReportWeekNumber.Location = new System.Drawing.Point(94, 66);
-            this.numericUpDownWeeklyReportWeekNumber.Maximum = new decimal(new int[] {
-            52,
-            0,
-            0,
-            0});
-            this.numericUpDownWeeklyReportWeekNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownWeeklyReportWeekNumber.Name = "numericUpDownWeeklyReportWeekNumber";
-            this.numericUpDownWeeklyReportWeekNumber.Size = new System.Drawing.Size(100, 26);
-            this.numericUpDownWeeklyReportWeekNumber.TabIndex = 7;
-            this.numericUpDownWeeklyReportWeekNumber.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.pictureBox1.Image = global::SUT.Properties.Resources.calculator_icon_made_by_eucalyp_from_flaticon;
+            this.pictureBox1.Location = new System.Drawing.Point(19, 32);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // FormMain
             // 
@@ -269,16 +293,17 @@
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageTracker.ResumeLayout(false);
+            this.groupBoxWorkCategory.ResumeLayout(false);
             this.groupBoxTotalNumberOfServiceUnits.ResumeLayout(false);
             this.groupBoxTotalNumberOfServiceUnits.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).EndInit();
             this.tabPageReports.ResumeLayout(false);
             this.groupBoxWeeklyReport.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportYear)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageAbout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -301,6 +326,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownWeeklyReportYear;
         private System.Windows.Forms.Button buttonGenerateWeeklyReport;
         private System.Windows.Forms.NumericUpDown numericUpDownWeeklyReportWeekNumber;
+        private System.Windows.Forms.GroupBox groupBoxWorkCategory;
+        private System.Windows.Forms.Label labelCurrentWorkCategory;
     }
 }
 

@@ -131,6 +131,15 @@
   <ItemGroup>
     <None Include="Resources\clock-icon-made-by-eucalyp-from-flaticon.png" />
     <None Include="Resources\calculator-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\contact-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\superhero-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\virus-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\learning-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\mission-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\people-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\management-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\risks-icon-made-by-eucalyp-from-flaticon.png" />
+    <None Include="Resources\risky-icon-made-by-eucalyp-from-flaticon.png" />
     <Content Include="text-icon-made-by-pixel-perfect-from-flaticon.ico" />
   </ItemGroup>
   <ItemGroup />

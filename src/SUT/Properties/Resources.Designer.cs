@@ -79,5 +79,95 @@ namespace SUT.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap contact_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("contact-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap learning_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("learning-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap management_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("management-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mission_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("mission-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap people_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("people-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap risks_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("risks-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap risky_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("risky-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap superhero_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("superhero-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap virus_icon_made_by_eucalyp_from_flaticon {
+            get {
+                object obj = ResourceManager.GetObject("virus-icon-made-by-eucalyp-from-flaticon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

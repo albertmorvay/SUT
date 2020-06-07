@@ -1,9 +1,10 @@
-﻿using LiteDB;
-using Serilog;
-using SUT.Helpers;
-using System;
+﻿using System;
+using System.Linq;
 using System.Timers;
 using System.Windows.Forms;
+using LiteDB;
+using Serilog;
+using SUT.Helpers;
 
 namespace SUT
 {
@@ -12,6 +13,7 @@ namespace SUT
         private System.Timers.Timer timer;
         private WorkingDay currentWorkingDay = null;
         private WorkCategory currentWorkCategory = new WorkCategory("Admin");
+        private DateTime lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay = new DateTime();
 
         public FormMain()
         {
@@ -23,8 +25,7 @@ namespace SUT
             try
             {
                 FormPositioning.ScreenCenterAtTheBottom(this);
-                var formCategoryPicker = new FormCategoryPicker(this);
-                formCategoryPicker.Show();
+                ShowFormCategoryPicker(this);
                 labelSoftwareVersion.Text = string.Format("{0}-alpha", Application.ProductVersion);
                 SetTimer();
                 Log.Debug("Timer configured.");
@@ -38,19 +39,19 @@ namespace SUT
                 throw exception;
 #else
                 Log.Fatal (exception, "Form load failed.");
-                Application.Exit();
+                Application.Exit ();
 #endif
             }
         }
 
         private void SetTimer()
         {
-            
+
 #if DEBUG
-            timer = new System.Timers.Timer(2000);
+            timer = new System.Timers.Timer(10000);
 #else
             // Create a timer with a sixty second interval.
-            timer = new System.Timers.Timer(60000);
+            timer = new System.Timers.Timer (60000);
 #endif
             // Hook up the Elapsed event for the timer. 
             timer.Elapsed += OnTimedEvent;
@@ -69,7 +70,7 @@ namespace SUT
                 using (var db = new LiteDatabase(@"C:\temp\sut-test.db"))
 #else
                 // Open database (or create if doesn't exist)
-                using (var db = new LiteDatabase(string.Format(@"{0}\sut.db", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))))
+                using (var db = new LiteDatabase (string.Format (@"{0}\sut.db", Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments))))
 #endif
                 {
                     // Get a collection (or create, if doesn't exist)
@@ -82,7 +83,7 @@ namespace SUT
                         var bar = currentWorkingDay.TotalTime();
                         currentWorkingDay.AddServiceUnit();
                         SetLabelTotalServiceUnitCountText(currentWorkingDay.TotalServiceUnits().ToString("D2"));
-                        
+
                         // Update a document inside a collection
                         databaseCollectionWorkingDay.Update(currentWorkingDay);
                     }
@@ -98,22 +99,44 @@ namespace SUT
 
                     // Get a collection (or create, if doesn't exist)
                     var databaseCollectionWorkCategory = db.GetCollection<WorkCategory>("WorkCategories");
-                    
-                    var persistedWorkCategory = databaseCollectionWorkCategory.FindOne(x => x.Id == currentWorkCategory.Id);   
+
+                    var persistedWorkCategory = databaseCollectionWorkCategory.FindOne(x => x.Id == currentWorkCategory.Id);
+
+                    if (lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay == DateTime.MinValue)
+                    {
+                        var todaysPersistedWorkCategories = databaseCollectionWorkCategory.Find(x => x.LastRecordedServiceUnitOfTheDay.Date == DateTime.Now.Date);
+                        if (todaysPersistedWorkCategories != null && todaysPersistedWorkCategories.Any<WorkCategory>() == true)
+                            lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay = todaysPersistedWorkCategories.Max(r => r.LastRecordedServiceUnitOfTheDay);
+                    }
+
+
                     if (persistedWorkCategory != null)
                     {
                         currentWorkCategory = persistedWorkCategory;
+#if DEBUG
+                        if (lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay != DateTime.MinValue && lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay.AddSeconds(109) < DateTime.Now)
+#else
+                            if (lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay.AddMinutes(14) < DateTime.Now)
+#endif
+                        {
+                            if (lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay != DateTime.MinValue)
+                                ShowFormCategoryPicker(this);
+                        }
+                        currentWorkCategory.AddServiceUnit();
+                        lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay = currentWorkCategory.LastRecordedServiceUnitOfTheDay;
+                        databaseCollectionWorkCategory.Update(currentWorkCategory);
                     }
                     else
                     {
-                        // Create your new customer instance
+                        // Create your new work category instance
                         currentWorkCategory = new WorkCategory("ADMIN");
+                        lastRecordedServiceUnitOfAllWorkCategoriesOfTheDay = currentWorkCategory.LastRecordedServiceUnitOfTheDay;
                         databaseCollectionWorkCategory.Insert(currentWorkCategory);
                     }
-                    currentWorkCategory.AddServiceUnit();
-                    databaseCollectionWorkCategory.Update(currentWorkCategory);
+
                 }
                 timer.Start();
+
             }
             catch (Exception exception)
             {
@@ -121,7 +144,35 @@ namespace SUT
                 throw exception;
 #else
                 Log.Fatal (exception, "Timed event failed.");
-                Application.Exit();
+                Application.Exit ();
+#endif
+            }
+        }
+
+        delegate void ShowFormCategoryPickerCallback(FormMain callingForm);
+
+        private void ShowFormCategoryPicker(FormMain callingForm)
+        {
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    ShowFormCategoryPickerCallback d = new ShowFormCategoryPickerCallback(ShowFormCategoryPicker);
+                    this.Invoke(d, new object[] { callingForm });
+                }
+                else
+                {
+                    var formCategoryPicker = new FormCategoryPicker(this);
+                    formCategoryPicker.Show();
+                }
+            }
+            catch (Exception exception)
+            {
+#if DEBUG
+                throw exception;
+#else
+                Log.Fatal (exception, "Setting total service unit count failed.");
+                Application.Exit ();
 #endif
             }
         }
@@ -148,7 +199,34 @@ namespace SUT
                 throw exception;
 #else
                 Log.Fatal (exception, "Setting total service unit count failed.");
-                Application.Exit();
+                Application.Exit ();
+#endif
+            }
+        }
+
+        delegate void SetLabelCurrentWorkCategoryCallback(string text);
+
+        public void SetLabelCurrentWorkCategory(string text)
+        {
+            try
+            {
+                if (this.labelCurrentWorkCategory.InvokeRequired)
+                {
+                    SetLabelCurrentWorkCategoryCallback d = new SetLabelCurrentWorkCategoryCallback(SetLabelCurrentWorkCategory);
+                    this.Invoke(d, new object[] { text });
+                }
+                else
+                {
+                    this.labelCurrentWorkCategory.Text = text;
+                }
+            }
+            catch (Exception exception)
+            {
+#if DEBUG
+                throw exception;
+#else
+                Log.Fatal (exception, "Setting total service unit count failed.");
+                Application.Exit ();
 #endif
             }
         }
@@ -165,7 +243,7 @@ namespace SUT
                 throw exception;
 #else
                 Log.Fatal (exception, "Disposing of timer failed.");
-                Application.Exit();
+                Application.Exit ();
 #endif
             }
         }

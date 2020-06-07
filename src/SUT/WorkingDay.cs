@@ -35,7 +35,7 @@ namespace SUT
             Timezone = TimeZone.CurrentTimeZone.StandardName;
             if (FirstServiceUnitOfTheDay == DateTime.MinValue)
                 FirstServiceUnitOfTheDay = DateTime.Now;
-            //AddServiceUnit();
+            AddServiceUnit();
         }
 
         public int TotalServiceUnits()
