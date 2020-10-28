@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - https://github.com/albertmorvay/SUT/labels/enhancement
 
+## 0.5.0 - 2020-10-28
+### Added
+- #12 Add control to start application on windows startup.
 
 ## 0.3.0 - 2020-05-10
 ### Added
