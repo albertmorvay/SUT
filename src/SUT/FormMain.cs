@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Timers;
@@ -8,8 +9,11 @@ namespace SUT
 {
     public partial class FormMain : Form
     {
+        private String stringApplicationName = "SUTServiceUnitTracker";
         private System.Timers.Timer timer;
         private WorkingDay workingDay = null;
+        RegistryKey registryKeyRunOnStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
 
         public FormMain()
         {
@@ -26,6 +30,17 @@ namespace SUT
                 timer.Start();
                 Log.Debug("Timer started.");
                 numericUpDownWeeklyReportWeekNumber.Value = ReportingExcel.GetIso8601WeekOfYear(DateTime.Now);
+                // Check to see the current state (running at startup or not)
+                if (registryKeyRunOnStartup.GetValue(stringApplicationName) == null)
+                {
+                    // The value doesn't exist, the application is not set to run at startup
+                    checkBoxRunOnStartup.Checked = false;
+                }
+                else
+                {
+                    // The value exists, the application is set to run at startup
+                    checkBoxRunOnStartup.Checked = true;
+                }
             }
             catch (Exception exception)
             {
@@ -151,6 +166,25 @@ namespace SUT
         private void buttonGenerateWeeklyReport_Click(object sender, EventArgs e)
         {
             ReportingExcel.CreateWeeklyReport(Convert.ToInt32(numericUpDownWeeklyReportYear.Value), Convert.ToInt32(numericUpDownWeeklyReportWeekNumber.Value));
+        }
+
+        private void checkBoxRunOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterOnStartup(checkBoxRunOnStartup.Checked);
+        }
+
+        private void RegisterOnStartup(bool isChecked)
+        {
+            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
+                    ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (isChecked)
+            {
+                registryKey.SetValue(stringApplicationName, Application.ExecutablePath);
+            }
+            else
+            {
+                registryKey.DeleteValue(stringApplicationName, false);
+            }
         }
     }
 }

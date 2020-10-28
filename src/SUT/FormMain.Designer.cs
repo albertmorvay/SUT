@@ -36,6 +36,8 @@
             this.labelTotalServiceUnitCount = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.groupBoxWeeklyReport = new System.Windows.Forms.GroupBox();
+            this.numericUpDownWeeklyReportWeekNumber = new System.Windows.Forms.NumericUpDown();
+            this.buttonGenerateWeeklyReport = new System.Windows.Forms.Button();
             this.numericUpDownWeeklyReportYear = new System.Windows.Forms.NumericUpDown();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
@@ -43,18 +45,17 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTitleAbout = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.buttonGenerateWeeklyReport = new System.Windows.Forms.Button();
-            this.numericUpDownWeeklyReportWeekNumber = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxRunOnStartup = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageTracker.SuspendLayout();
             this.groupBoxTotalNumberOfServiceUnits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).BeginInit();
             this.tabPageReports.SuspendLayout();
             this.groupBoxWeeklyReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPageAbout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -113,6 +114,7 @@
             // 
             // tabPageReports
             // 
+            this.tabPageReports.Controls.Add(this.checkBoxRunOnStartup);
             this.tabPageReports.Controls.Add(this.groupBoxWeeklyReport);
             this.tabPageReports.Location = new System.Drawing.Point(4, 22);
             this.tabPageReports.Name = "tabPageReports";
@@ -134,6 +136,39 @@
             this.groupBoxWeeklyReport.TabIndex = 3;
             this.groupBoxWeeklyReport.TabStop = false;
             this.groupBoxWeeklyReport.Text = "Year and Week Number";
+            // 
+            // numericUpDownWeeklyReportWeekNumber
+            // 
+            this.numericUpDownWeeklyReportWeekNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numericUpDownWeeklyReportWeekNumber.Location = new System.Drawing.Point(94, 66);
+            this.numericUpDownWeeklyReportWeekNumber.Maximum = new decimal(new int[] {
+            52,
+            0,
+            0,
+            0});
+            this.numericUpDownWeeklyReportWeekNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownWeeklyReportWeekNumber.Name = "numericUpDownWeeklyReportWeekNumber";
+            this.numericUpDownWeeklyReportWeekNumber.Size = new System.Drawing.Size(100, 26);
+            this.numericUpDownWeeklyReportWeekNumber.TabIndex = 7;
+            this.numericUpDownWeeklyReportWeekNumber.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // buttonGenerateWeeklyReport
+            // 
+            this.buttonGenerateWeeklyReport.Location = new System.Drawing.Point(19, 98);
+            this.buttonGenerateWeeklyReport.Name = "buttonGenerateWeeklyReport";
+            this.buttonGenerateWeeklyReport.Size = new System.Drawing.Size(175, 23);
+            this.buttonGenerateWeeklyReport.TabIndex = 6;
+            this.buttonGenerateWeeklyReport.Text = "Save to My Documents Folder";
+            this.buttonGenerateWeeklyReport.UseVisualStyleBackColor = true;
+            this.buttonGenerateWeeklyReport.Click += new System.EventHandler(this.buttonGenerateWeeklyReport_Click);
             // 
             // numericUpDownWeeklyReportYear
             // 
@@ -221,38 +256,16 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
-            // buttonGenerateWeeklyReport
+            // checkBoxRunOnStartup
             // 
-            this.buttonGenerateWeeklyReport.Location = new System.Drawing.Point(19, 98);
-            this.buttonGenerateWeeklyReport.Name = "buttonGenerateWeeklyReport";
-            this.buttonGenerateWeeklyReport.Size = new System.Drawing.Size(175, 23);
-            this.buttonGenerateWeeklyReport.TabIndex = 6;
-            this.buttonGenerateWeeklyReport.Text = "Save to My Documents Folder";
-            this.buttonGenerateWeeklyReport.UseVisualStyleBackColor = true;
-            this.buttonGenerateWeeklyReport.Click += new System.EventHandler(this.buttonGenerateWeeklyReport_Click);
-            // 
-            // numericUpDownWeeklyReportWeekNumber
-            // 
-            this.numericUpDownWeeklyReportWeekNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numericUpDownWeeklyReportWeekNumber.Location = new System.Drawing.Point(94, 66);
-            this.numericUpDownWeeklyReportWeekNumber.Maximum = new decimal(new int[] {
-            52,
-            0,
-            0,
-            0});
-            this.numericUpDownWeeklyReportWeekNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownWeeklyReportWeekNumber.Name = "numericUpDownWeeklyReportWeekNumber";
-            this.numericUpDownWeeklyReportWeekNumber.Size = new System.Drawing.Size(100, 26);
-            this.numericUpDownWeeklyReportWeekNumber.TabIndex = 7;
-            this.numericUpDownWeeklyReportWeekNumber.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.checkBoxRunOnStartup.AutoSize = true;
+            this.checkBoxRunOnStartup.Location = new System.Drawing.Point(20, 189);
+            this.checkBoxRunOnStartup.Name = "checkBoxRunOnStartup";
+            this.checkBoxRunOnStartup.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxRunOnStartup.TabIndex = 4;
+            this.checkBoxRunOnStartup.Text = "Run On Startup";
+            this.checkBoxRunOnStartup.UseVisualStyleBackColor = true;
+            this.checkBoxRunOnStartup.CheckedChanged += new System.EventHandler(this.checkBoxRunOnStartup_CheckedChanged);
             // 
             // FormMain
             // 
@@ -273,12 +286,13 @@
             this.groupBoxTotalNumberOfServiceUnits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxServiceUnits)).EndInit();
             this.tabPageReports.ResumeLayout(false);
+            this.tabPageReports.PerformLayout();
             this.groupBoxWeeklyReport.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPageAbout.ResumeLayout(false);
             this.tabPageAbout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeeklyReportWeekNumber)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -301,6 +315,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownWeeklyReportYear;
         private System.Windows.Forms.Button buttonGenerateWeeklyReport;
         private System.Windows.Forms.NumericUpDown numericUpDownWeeklyReportWeekNumber;
+        private System.Windows.Forms.CheckBox checkBoxRunOnStartup;
     }
 }
 
