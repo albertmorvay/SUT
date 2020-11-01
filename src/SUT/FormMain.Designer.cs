@@ -35,6 +35,7 @@
             this.pictureBoxServiceUnits = new System.Windows.Forms.PictureBox();
             this.labelTotalServiceUnitCount = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
+            this.checkBoxRunOnStartup = new System.Windows.Forms.CheckBox();
             this.groupBoxWeeklyReport = new System.Windows.Forms.GroupBox();
             this.numericUpDownWeeklyReportWeekNumber = new System.Windows.Forms.NumericUpDown();
             this.buttonGenerateWeeklyReport = new System.Windows.Forms.Button();
@@ -45,7 +46,7 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTitleAbout = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.checkBoxRunOnStartup = new System.Windows.Forms.CheckBox();
+            this.checkBoxTrackWhilstLocked = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageTracker.SuspendLayout();
             this.groupBoxTotalNumberOfServiceUnits.SuspendLayout();
@@ -114,6 +115,7 @@
             // 
             // tabPageReports
             // 
+            this.tabPageReports.Controls.Add(this.checkBoxTrackWhilstLocked);
             this.tabPageReports.Controls.Add(this.checkBoxRunOnStartup);
             this.tabPageReports.Controls.Add(this.groupBoxWeeklyReport);
             this.tabPageReports.Location = new System.Drawing.Point(4, 22);
@@ -123,6 +125,18 @@
             this.tabPageReports.TabIndex = 2;
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
+            this.tabPageReports.Click += new System.EventHandler(this.tabPageReports_Click);
+            // 
+            // checkBoxRunOnStartup
+            // 
+            this.checkBoxRunOnStartup.AutoSize = true;
+            this.checkBoxRunOnStartup.Location = new System.Drawing.Point(20, 189);
+            this.checkBoxRunOnStartup.Name = "checkBoxRunOnStartup";
+            this.checkBoxRunOnStartup.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxRunOnStartup.TabIndex = 4;
+            this.checkBoxRunOnStartup.Text = "Run On Startup";
+            this.checkBoxRunOnStartup.UseVisualStyleBackColor = true;
+            this.checkBoxRunOnStartup.CheckedChanged += new System.EventHandler(this.checkBoxRunOnStartup_CheckedChanged);
             // 
             // groupBoxWeeklyReport
             // 
@@ -256,16 +270,15 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
-            // checkBoxRunOnStartup
+            // checkBoxTrackWhilstLocked
             // 
-            this.checkBoxRunOnStartup.AutoSize = true;
-            this.checkBoxRunOnStartup.Location = new System.Drawing.Point(20, 189);
-            this.checkBoxRunOnStartup.Name = "checkBoxRunOnStartup";
-            this.checkBoxRunOnStartup.Size = new System.Drawing.Size(100, 17);
-            this.checkBoxRunOnStartup.TabIndex = 4;
-            this.checkBoxRunOnStartup.Text = "Run On Startup";
-            this.checkBoxRunOnStartup.UseVisualStyleBackColor = true;
-            this.checkBoxRunOnStartup.CheckedChanged += new System.EventHandler(this.checkBoxRunOnStartup_CheckedChanged);
+            this.checkBoxTrackWhilstLocked.AutoSize = true;
+            this.checkBoxTrackWhilstLocked.Location = new System.Drawing.Point(20, 212);
+            this.checkBoxTrackWhilstLocked.Name = "checkBoxTrackWhilstLocked";
+            this.checkBoxTrackWhilstLocked.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxTrackWhilstLocked.TabIndex = 5;
+            this.checkBoxTrackWhilstLocked.Text = "Track Whilst Locked";
+            this.checkBoxTrackWhilstLocked.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -316,6 +329,7 @@
         private System.Windows.Forms.Button buttonGenerateWeeklyReport;
         private System.Windows.Forms.NumericUpDown numericUpDownWeeklyReportWeekNumber;
         private System.Windows.Forms.CheckBox checkBoxRunOnStartup;
+        private System.Windows.Forms.CheckBox checkBoxTrackWhilstLocked;
     }
 }
 

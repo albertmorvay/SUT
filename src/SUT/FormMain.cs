@@ -9,15 +9,18 @@ namespace SUT
 {
     public partial class FormMain : Form
     {
+
         private String stringApplicationName = "SUTServiceUnitTracker";
         private System.Timers.Timer timer;
         private WorkingDay workingDay = null;
         RegistryKey registryKeyRunOnStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        private bool workstationLocked = false;
 
 
         public FormMain()
         {
             InitializeComponent();
+            SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -53,6 +56,20 @@ namespace SUT
             }
         }
 
+        
+
+        void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
+        {
+            if (e.Reason == SessionSwitchReason.SessionLock)
+            {
+                workstationLocked = true;
+            }
+            else if (e.Reason == SessionSwitchReason.SessionUnlock)
+            {
+                workstationLocked = false;
+            }
+        }
+
         private void SetTimer()
         {
             
@@ -73,38 +90,40 @@ namespace SUT
             try
             {
                 timer.Stop();
-
-#if DEBUG
-                // Open database (or create if doesn't exist)
-                using (var db = new LiteDatabase(@"C:\temp\sut-test.db"))
-#else
-                // Open database (or create if doesn't exist)
-                using (var db = new LiteDatabase(string.Format(@"{0}\sut.db", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))))
-#endif
+                if(!workstationLocked || checkBoxTrackWhilstLocked.Checked)
                 {
-                    // Get a collection (or create, if doesn't exist)
-                    var databaseCollection = db.GetCollection<WorkingDay>("WorkingDays");
-                    // Use Linq to query documents
-                    var persistedWorkingDay = databaseCollection.FindOne(x => x.Id == DateTime.Now.ToString("yyyyMMdd"));
-                    if (persistedWorkingDay != null)
+    #if DEBUG
+                    // Open database (or create if doesn't exist)
+                    using (var db = new LiteDatabase(@"C:\temp\sut-test.db"))
+    #else
+                    // Open database (or create if doesn't exist)
+                    using (var db = new LiteDatabase(string.Format(@"{0}\sut.db", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))))
+    #endif
                     {
-                        workingDay = persistedWorkingDay;
-                        var bar = workingDay.TotalTime();
-                        workingDay.AddServiceUnit();
-                        SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
+                        // Get a collection (or create, if doesn't exist)
+                        var databaseCollection = db.GetCollection<WorkingDay>("WorkingDays");
+                        // Use Linq to query documents
+                        var persistedWorkingDay = databaseCollection.FindOne(x => x.Id == DateTime.Now.ToString("yyyyMMdd"));
+                        if (persistedWorkingDay != null)
+                        {
+                            workingDay = persistedWorkingDay;
+                            var bar = workingDay.TotalTime();
+                            workingDay.AddServiceUnit();
+                            SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
                         
-                        // Update a document inside a collection
+                            // Update a document inside a collection
+                            databaseCollection.Update(workingDay);
+                        }
+                        else
+                        {
+                            // Create your new customer instance
+                            workingDay = new WorkingDay();
+                            SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
+                            databaseCollection.Insert(workingDay);
+                        }
+
                         databaseCollection.Update(workingDay);
                     }
-                    else
-                    {
-                        // Create your new customer instance
-                        workingDay = new WorkingDay();
-                        SetLabelTotalServiceUnitCountText(workingDay.TotalServiceUnits().ToString("D2"));
-                        databaseCollection.Insert(workingDay);
-                    }
-
-                    databaseCollection.Update(workingDay);
                 }
                 timer.Start();
             }
@@ -185,6 +204,11 @@ namespace SUT
             {
                 registryKey.DeleteValue(stringApplicationName, false);
             }
+        }
+
+        private void tabPageReports_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
