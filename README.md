@@ -5,10 +5,8 @@
 
 TODO
 
-```sh
 1. Install [.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48) or higher.
-2. TODO for v1.00
-```
+2. // TODO: for v1.00
 
 ## Usage example
 
