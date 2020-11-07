@@ -1,12 +1,12 @@
 # SUT
 > The Service Unit Tracker is a speciales Windows Forms based time sheet utility aimed at automatically capturing the number of Service Units (one service unit equaling 15 minutes) spent working logged into a workstation. This tool is being written to fit my specific needs to easily track time without any third party operated services.
 
-## Installation
 
-TODO
+## Installation
 
 1. Install [.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48) or higher.
 2. // TODO: for v1.00
+
 
 ## Usage example
 
