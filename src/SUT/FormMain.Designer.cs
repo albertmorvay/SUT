@@ -47,7 +47,6 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTitleAbout = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.checkBoxTrackWhilstLocked = new System.Windows.Forms.CheckBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageTracker.SuspendLayout();
             this.groupBoxTotalNumberOfServiceUnits.SuspendLayout();
