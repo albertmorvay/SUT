@@ -35,6 +35,7 @@
             this.pictureBoxServiceUnits = new System.Windows.Forms.PictureBox();
             this.labelTotalServiceUnitCount = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
+            this.checkBoxTrackWhilstLocked = new System.Windows.Forms.CheckBox();
             this.checkBoxRunOnStartup = new System.Windows.Forms.CheckBox();
             this.groupBoxWeeklyReport = new System.Windows.Forms.GroupBox();
             this.numericUpDownWeeklyReportWeekNumber = new System.Windows.Forms.NumericUpDown();
@@ -127,6 +128,16 @@
             this.tabPageReports.UseVisualStyleBackColor = true;
             this.tabPageReports.Click += new System.EventHandler(this.tabPageReports_Click);
             // 
+            // checkBoxTrackWhilstLocked
+            // 
+            this.checkBoxTrackWhilstLocked.AutoSize = true;
+            this.checkBoxTrackWhilstLocked.Location = new System.Drawing.Point(20, 212);
+            this.checkBoxTrackWhilstLocked.Name = "checkBoxTrackWhilstLocked";
+            this.checkBoxTrackWhilstLocked.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxTrackWhilstLocked.TabIndex = 5;
+            this.checkBoxTrackWhilstLocked.Text = "Track Whilst Locked";
+            this.checkBoxTrackWhilstLocked.UseVisualStyleBackColor = true;
+            // 
             // checkBoxRunOnStartup
             // 
             this.checkBoxRunOnStartup.AutoSize = true;
@@ -156,7 +167,7 @@
             this.numericUpDownWeeklyReportWeekNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.numericUpDownWeeklyReportWeekNumber.Location = new System.Drawing.Point(94, 66);
             this.numericUpDownWeeklyReportWeekNumber.Maximum = new decimal(new int[] {
-            52,
+            53,
             0,
             0,
             0});
@@ -269,16 +280,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(260, 248);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
-            // checkBoxTrackWhilstLocked
-            // 
-            this.checkBoxTrackWhilstLocked.AutoSize = true;
-            this.checkBoxTrackWhilstLocked.Location = new System.Drawing.Point(20, 212);
-            this.checkBoxTrackWhilstLocked.Name = "checkBoxTrackWhilstLocked";
-            this.checkBoxTrackWhilstLocked.Size = new System.Drawing.Size(125, 17);
-            this.checkBoxTrackWhilstLocked.TabIndex = 5;
-            this.checkBoxTrackWhilstLocked.Text = "Track Whilst Locked";
-            this.checkBoxTrackWhilstLocked.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
