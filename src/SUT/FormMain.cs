@@ -32,6 +32,7 @@ namespace SUT
                 Log.Debug("Timer configured.");
                 timer.Start();
                 Log.Debug("Timer started.");
+                numericUpDownWeeklyReportYear.Value = DateTime.Now.Year;
                 numericUpDownWeeklyReportWeekNumber.Value = ReportingExcel.GetIso8601WeekOfYear(DateTime.Now);
                 // Check to see the current state (running at startup or not)
                 if (registryKeyRunOnStartup.GetValue(stringApplicationName) == null)
