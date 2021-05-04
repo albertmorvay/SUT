@@ -98,7 +98,7 @@ namespace SUT
                     using (var db = new LiteDatabase(@"C:\temp\sut-test.db"))
     #else
                     // Open database (or create if doesn't exist)
-                    using (var db = new LiteDatabase(string.Format(@"{0}\sut.db", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))))
+                    using (var db = new LiteDatabase("sut.db"))
     #endif
                     {
                         // Get a collection (or create, if doesn't exist)
